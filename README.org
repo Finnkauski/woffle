@@ -1,7 +1,7 @@
 #+TITLE: woffle
 #+AUTHOR: karetsu
 
-[[https://travis-ci.com/karetsu/woffle.svg?branch=test]]
+[[https://travis-ci.com/karetsu/woffle.svg?branch=tests]]
 
 * Introduction
 
