@@ -17,7 +17,6 @@ def test_letters():
 def test_spaces():
     assert spaces('  ') == ' '
 
-# @given(st.characters(blacklist_characters=['\n']))
 @given(st.characters())
 def test_singles(char):
     char_spaces = ' ' + char + ' ' 
