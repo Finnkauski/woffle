@@ -17,10 +17,12 @@ def test_letters():
 def test_spaces():
     assert spaces('  ') == ' '
 
-
-def test_singletons():
-
-    assert singletons(' x ') == ''
+# @given(st.characters(blacklist_characters=['\n']))
+@given(st.characters())
+def test_singles(char):
+    char_spaces = ' ' + char + ' ' 
+    assert singles(char) == ''
+    assert singles(char_spaces) == ''
 
 @given(st.text(st.characters(blacklist_characters=['\n'])))
 def test_unlines(word):
