@@ -19,6 +19,7 @@ def test_spaces():
 
 
 def test_singletons():
+
     assert singletons(' x ') == ''
 
 @given(st.text(st.characters(blacklist_characters=['\n'])))
