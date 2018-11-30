@@ -1,7 +1,7 @@
 #-- Imports ---------------------------------------------------------------------
 # base
 import random
-
+import re 
 # third party
 from hypothesis import given
 from hypothesis import strategies as st
@@ -10,18 +10,19 @@ from hypothesis import strategies as st
 from woffle.data.parse import *
 
 #-- Tests -----------------------------------------------------------------------
-def test_letters():
-    assert letters('foobar') == 'foobar'
-    assert letters('foo_bar') == 'foobar'
+@given(st.from_regex(re.compile(r"[a-z]+"), fullmatch=True))
+def test_letters(just_text):
+    assert letters(just_text) == just_text
+    assert letters('foo_\nbar') == 'foobar'
 
 def test_spaces():
-    assert spaces('  ') == ' '
+    assert spaces('\t'*10) == ' '
+    assert spaces(' '*2) == ' '
 
-@given(st.characters())
-def test_singles(char):
-    char_spaces = ' ' + char + ' ' 
+@given(st.from_regex(re.compile(r"\s[a-z]\s"), fullmatch=True), st.from_regex(re.compile(r"\s?[a-z]{3,}\s?"), fullmatch=True))
+def test_singles(char, word):
     assert singles(char) == ''
-    assert singles(char_spaces) == ''
+    assert singles(word) == word
 
 @given(st.text(st.characters(blacklist_characters=['\n'])))
 def test_unlines(word):
