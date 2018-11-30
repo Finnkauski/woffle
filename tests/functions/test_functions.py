@@ -4,7 +4,6 @@
 import functools
 
 # third party
-import pytest
 from woffle.functions.compose import *
 
 from hypothesis import given
@@ -18,4 +17,6 @@ def test_id():
 
 @given(st.lists(st.integers()))
 def test_basic_composition(integers):
-    assert compose(str, sum, functools.partial(map, int))(integers) == str(sum(map(int,integers)))
+    comp = compose(str, sum, functools.partial(map, int))
+    assert callable(comp)  
+    assert comp(integers) == str(sum(map(int,integers)))
