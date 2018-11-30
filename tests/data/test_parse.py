@@ -10,10 +10,13 @@ from hypothesis import strategies as st
 from woffle.data.parse import *
 
 #-- Tests -----------------------------------------------------------------------
-@given(st.from_regex(re.compile(r"[a-z]+"), fullmatch=True))
-def test_letters(just_text):
+@given(st.from_regex(re.compile(r"[a-z]+"), fullmatch=True),
+       st.from_regex(re.compile(r"[^A-z ]+"), fullmatch=True)
+)
+def test_letters(just_text, non_letters):
     assert letters(just_text) == just_text
-    assert letters('foo_\nbar') == 'foobar'
+    assert letters(non_letters) == ''
+    assert letters(r'*&^%$#@!foo_\{}[]\};+<>\.bar') == 'foobar'
 
 def test_spaces():
     assert spaces('\t'*10) == ' '
