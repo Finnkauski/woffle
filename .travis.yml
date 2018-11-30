@@ -1,6 +1,7 @@
 language: python
-python:
-  - "3.6"
+sudo: required
+dist: xenial
+python: "3.7"
 
 # set up the image with system requirements
 addons:
@@ -13,7 +14,7 @@ addons:
 # do the install, but only almost all because otherwise it takes hours
 install:
   - ./setup.zsh -A
-
+  - pip install hypothesis pytest
 # check all branches
 branches:
   only:
